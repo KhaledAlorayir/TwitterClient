@@ -1,0 +1,50 @@
+<div
+  class="bg-zinc-800 h-full text-white flex items-center text-center justify-center"
+>
+  <div *ngIf="!isLoading" class="w-full px-8">
+    <p class="text-center mb-28 text-3xl font-bold font-mono">
+      {{ isLogin ? "Welcome Back 😍" : "Create an Account 🤗" }}
+    </p>
+    <form
+      (ngSubmit)="onSubmit()"
+      class="form-control text-black"
+      [formGroup]="form"
+    >
+      <div *ngIf="!isLogin" class="mb-12">
+        <input
+          type="text"
+          class="input w-full md:w-4/6 lg:w-2/6"
+          placeholder="Username"
+          formControlName="username"
+        />
+      </div>
+      <div class="mb-12">
+        <input
+          type="text"
+          class="input w-full md:w-4/6 lg:w-2/6"
+          placeholder="Email"
+          formControlName="email"
+        />
+      </div>
+      <div class="mb-12">
+        <input
+          type="password"
+          class="input w-full md:w-4/6 lg:w-2/6"
+          placeholder="Password"
+          formControlName="password"
+        />
+      </div>
+      <button class="btn w-full md:w-4/6 lg:w-2/6 mx-auto mb-8">
+        {{ isLogin ? "Login!" : "Sign up!" }}
+      </button>
+    </form>
+    <p (click)="isLogin = !isLogin" class="text-white cursor-pointer">
+      {{
+        isLogin
+          ? "don't have an account? create one!"
+          : "do you have an account? welcome back!"
+      }}
+    </p>
+  </div>
+  <app-loading-indicator *ngIf="isLoading"></app-loading-indicator>
+</div>

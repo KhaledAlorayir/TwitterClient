@@ -1,0 +1,25 @@
+<div class="bg-zinc-800 pb-8 min-h-full">
+  <div *ngIf="this.loading" class="h-screen flex justify-center items-center">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
+  <div *ngIf="!this.loading" class="pt-8 px-12">
+    <p class="text-white font-semibold text-lg mb-8">
+      {{
+        this.searchResults.results.length > 0 ? "Results:" : "No Results found"
+      }}
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+      <app-user-list-card
+        *ngFor="let user of searchResults.results"
+        [user]="user"
+      ></app-user-list-card>
+    </div>
+    <button
+      (click)="loadMore()"
+      *ngIf="searchResults.has_next"
+      class="btn bg-orange-800 hover:bg-orange-900 block mx-auto"
+    >
+      Load More
+    </button>
+  </div>
+</div>
