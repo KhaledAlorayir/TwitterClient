@@ -1,6 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
 import { BehaviorSubject, Subject, switchMap } from 'rxjs';
 import { Auth, User } from 'src/app/constants/interfaces';
 import { environment } from 'src/environments/environment';
@@ -61,7 +65,7 @@ export class AuthService {
           this.isLoading.next(false);
           this.auth.next({ user: v, token: this.tempToken.token });
           localStorage.setItem('token', this.tempToken.token);
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
         },
         error: ({ error }: HttpErrorResponse) => {
           this.isLoading.next(false);
@@ -79,12 +83,15 @@ export class AuthService {
   autoSignin() {
     const token = localStorage.getItem('token');
     if (token) {
+      this.isLoading.next(true);
       this.getUserData(token).subscribe({
         next: (user) => {
           this.auth.next({ user, token });
+          this.isLoading.next(false);
         },
         error: ({ error }: HttpErrorResponse) => {
-          this.alertService.handleErrors(error);
+          this.signout();
+          this.isLoading.next(false);
         },
       });
     }

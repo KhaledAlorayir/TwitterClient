@@ -49,7 +49,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (value) => {
-          console.log(value);
           this.searchResults = value;
           this.loading = false;
         },

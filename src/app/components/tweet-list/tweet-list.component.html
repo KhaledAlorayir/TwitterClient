@@ -1,0 +1,21 @@
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="1000"
+  (scrolled)="load()"
+  *ngIf="tweets"
+  class="py-6"
+>
+  <div *ngIf="tweets.results.length > 0">
+    <app-tweet-card *ngFor="let t of tweets.results" [t]="t"></app-tweet-card>
+    <div *ngIf="fetching" class="flex justify-center">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  </div>
+  <div
+    class="text-center text-lg font-semibold"
+    *ngIf="tweets.results.length === 0"
+  >
+    User has no {{ emptyText }}!
+  </div>
+</div>

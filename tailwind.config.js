@@ -1,7 +1,11 @@
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "hero-bg": "url('assets/bg.svg')",
+      },
+    },
   },
   plugins: [require("daisyui")],
 };

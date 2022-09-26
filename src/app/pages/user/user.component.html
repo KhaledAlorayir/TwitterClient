@@ -1,0 +1,11 @@
+<div
+  class="h-full bg-zinc-800 flex justify-center items-center"
+  *ngIf="!user || loading"
+>
+  <app-loading-indicator *ngIf="loading"></app-loading-indicator>
+</div>
+<div *ngIf="user && !loading" class="min-h-full bg-zinc-900 md:px-16 lg:px-20">
+  <app-user-header [auth]="auth" [user]="user"></app-user-header>
+  <div class="bg-zinc-600 py-1"></div>
+  <router-outlet></router-outlet>
+</div>

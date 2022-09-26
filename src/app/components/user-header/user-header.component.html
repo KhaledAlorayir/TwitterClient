@@ -1,0 +1,51 @@
+<div class="bg-zinc-800 shadow-md px-4 py-9">
+  <header class="text-center text-white font-mono">
+    <div class="avatar mb-8">
+      <div class="w-32 rounded">
+        <img src="{{ user.img_url }}" />
+      </div>
+    </div>
+    <p class="mb-2 text-lg font-semibold">
+      {{ user.username }}
+    </p>
+    <p class="mb-8">{{ user.bio }} (Joined {{ getJoinedDate() }})</p>
+    <div class="font-semibold mb-8 flex justify-around items-center">
+      <div>
+        <a
+          routerLink="/user/{{ user.id }}"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="text-yellow-300"
+        >
+          <p>Tweets</p>
+          <p class="text-yellow-300">{{ user.tweets_count }}</p>
+        </a>
+      </div>
+      <div>
+        <a [routerLink]="['likes']" routerLinkActive="text-yellow-300">
+          <p>Likes</p>
+          <p class="text-yellow-300">{{ user.likes_count }}</p>
+        </a>
+      </div>
+      <div>
+        <a [routerLink]="['followers']" routerLinkActive="text-yellow-300">
+          <p>Followers</p>
+          <p class="text-yellow-300">{{ user.followers_count }}</p>
+        </a>
+      </div>
+      <div>
+        <a [routerLink]="['following']" routerLinkActive="text-yellow-300">
+          <p>Following</p>
+          <p class="text-yellow-300">{{ user.following_count }}</p>
+        </a>
+      </div>
+    </div>
+    <button
+      (click)="follow()"
+      [ngClass]="{ 'btn-disabled  loading opacity-70': followsLoading }"
+      *ngIf="auth && auth.user.id !== user.id && !initLoading"
+      class="btn bg-yellow-600 hover:bg-yellow-700 text-black"
+    >
+      {{ follows ? "unfollow" : "follow" }}
+    </button>
+  </header>
+</div>

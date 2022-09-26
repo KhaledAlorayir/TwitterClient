@@ -53,3 +53,17 @@ export interface Auth {
   user: User;
   token: string;
 }
+
+export interface Tweet {
+  content: string;
+  created_at: Date;
+  id: number;
+  likes_count: number;
+  owner: {
+    id: number;
+    img_url: string;
+    username: string;
+  };
+  replay: boolean;
+  responses_count: number;
+}

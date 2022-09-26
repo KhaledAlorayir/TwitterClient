@@ -1,0 +1,13 @@
+<div class="bg-zinc-800 text-white">
+  <div *ngIf="loading" class="flex justify-center">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
+  <div *ngIf="!loading && userLikes">
+    <app-tweet-list
+      [tweets]="userLikes"
+      [fetching]="fetchingNext"
+      emptyText="likes"
+      (paginate)="loadData()"
+    ></app-tweet-list>
+  </div>
+</div>

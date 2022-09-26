@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { Alert } from '../constants/interfaces';
 import { BadRequest, Violations } from 'src/app/constants/interfaces';
 

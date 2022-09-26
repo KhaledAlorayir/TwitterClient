@@ -1,8 +1,10 @@
-<div
-  class="text-white hover:opacity-90 hover:cursor-pointer text-center bg-zinc-600 px-2 py-4 rounded-md shadow-md"
->
-  <div class="w-8 mx-auto mb-4">
-    <img src="{{ user.img_url }}" alt="user image" class="w-full h-full" />
+<a routerLink="/user/{{ user.id }}">
+  <div
+    class="text-white hover:opacity-90 hover:cursor-pointer text-center bg-zinc-600 px-2 py-4 rounded-md shadow-md"
+  >
+    <div class="w-8 mx-auto mb-4">
+      <img src="{{ user.img_url }}" alt="user image" class="w-full h-full" />
+    </div>
+    <div class="font-bold">{{ user.username }}</div>
   </div>
-  <div class="font-bold">{{ user.username }}</div>
-</div>
+</a>
