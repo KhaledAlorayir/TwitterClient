@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, Subscription } from 'rxjs';
 import { Pagination, Tweet } from 'src/app/constants/interfaces';
 import { LikeService } from 'src/app/services/API/like.service';
+import { TweetService } from 'src/app/services/API/tweet.service';
 
 @Component({
   selector: 'app-user-likes',
@@ -15,9 +16,12 @@ export class UserLikesComponent implements OnInit, OnDestroy {
   sub!: Subscription;
   page = 0;
   uid!: number;
+  unLikedIDSub!: Subscription;
+  DeletedSub!: Subscription;
 
   constructor(
     private likeService: LikeService,
+    private tweetService: TweetService,
     private activedRouter: ActivatedRoute
   ) {}
 
@@ -27,6 +31,24 @@ export class UserLikesComponent implements OnInit, OnDestroy {
       this.uid = id;
       this.loadData();
     }
+
+    this.unLikedIDSub = this.likeService.getUnlikedID().subscribe((id) => {
+      if (id && this.userLikes) {
+        this.userLikes.results = this.userLikes.results.filter(
+          (t) => t.id !== id
+        );
+        this.likeService.clearUnlikedID();
+      }
+    });
+
+    this.DeletedSub = this.tweetService.getDeletedId().subscribe((id) => {
+      if (id && this.userLikes) {
+        this.userLikes.results = this.userLikes.results.filter(
+          (t) => t.id !== id
+        );
+        this.tweetService.clearDeletedId();
+      }
+    });
   }
 
   loadData() {
@@ -53,5 +75,7 @@ export class UserLikesComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     if (this.sub) this.sub.unsubscribe();
+    if (this.unLikedIDSub) this.unLikedIDSub.unsubscribe();
+    if (this.DeletedSub) this.DeletedSub.unsubscribe();
   }
 }

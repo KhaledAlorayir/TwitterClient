@@ -3,6 +3,7 @@ import { Auth, User } from 'src/app/constants/interfaces';
 import dayjs from 'dayjs';
 import { Subscription } from 'rxjs';
 import { FollowService } from 'src/app/services/API/follow.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-user-header',
@@ -17,7 +18,10 @@ export class UserHeaderComponent implements OnInit, OnDestroy {
   sub1!: Subscription;
   sub2!: Subscription;
 
-  constructor(private followService: FollowService) {}
+  constructor(
+    private followService: FollowService,
+    private AlertService: AlertService
+  ) {}
 
   ngOnInit(): void {
     this.initLoading = true;
@@ -42,8 +46,16 @@ export class UserHeaderComponent implements OnInit, OnDestroy {
         this.follows = !this.follows;
         if (this.follows) {
           this.user.followers_count++;
+          this.AlertService.setAlert({
+            message: 'user has been followed!',
+            type: 'SUCCSS',
+          });
         } else {
           this.user.followers_count--;
+          this.AlertService.setAlert({
+            message: 'user has been unfollowed!',
+            type: 'SUCCSS',
+          });
         }
       }
       this.followsLoading = false;
@@ -51,7 +63,7 @@ export class UserHeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub1.unsubscribe();
+    if (this.sub1) this.sub1.unsubscribe();
     if (this.sub2) this.sub2.unsubscribe();
   }
 }

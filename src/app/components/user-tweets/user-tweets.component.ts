@@ -15,7 +15,7 @@ export class UserTweetsComponent implements OnInit, OnDestroy {
   sub!: Subscription;
   page = 0;
   uid!: number;
-
+  DeletedSub!: Subscription;
   constructor(
     private tweetService: TweetService,
     private activedRouter: ActivatedRoute
@@ -25,6 +25,15 @@ export class UserTweetsComponent implements OnInit, OnDestroy {
     const { id } = this.activedRouter.snapshot.params;
     this.uid = id;
     this.loadData();
+
+    this.DeletedSub = this.tweetService.getDeletedId().subscribe((id) => {
+      if (id && this.userTweets) {
+        this.userTweets.results = this.userTweets.results.filter(
+          (t) => t.id !== id
+        );
+        this.tweetService.clearDeletedId();
+      }
+    });
   }
 
   loadData() {
@@ -52,5 +61,6 @@ export class UserTweetsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.sub) this.sub.unsubscribe();
+    if (this.DeletedSub) this.DeletedSub.unsubscribe();
   }
 }

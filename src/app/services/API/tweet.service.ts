@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { AlertService } from '../alert.service';
 import { environment } from 'src/environments/environment';
 import { Pagination, Tweet } from 'src/app/constants/interfaces';
-import { catchError, of } from 'rxjs';
+import { catchError, of, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TweetService {
+  private DeletedTweetId = new Subject<number | null>();
+
   constructor(private http: HttpClient, private alertService: AlertService) {}
 
   getUserTweets(id: number, page: number) {
@@ -22,5 +24,26 @@ export class TweetService {
           return of(null);
         })
       );
+  }
+
+  deleteTweet(tid: number) {
+    return this.http.delete(`${environment.baseUrl}/tweet/${tid}`).pipe(
+      catchError((err) => {
+        this.alertService.handleErrors(err.error);
+        return of(null);
+      })
+    );
+  }
+
+  setDeletedId(id: number) {
+    this.DeletedTweetId.next(id);
+  }
+
+  clearDeletedId() {
+    this.DeletedTweetId.next(null);
+  }
+
+  getDeletedId() {
+    return this.DeletedTweetId.asObservable();
   }
 }

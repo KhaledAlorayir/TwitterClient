@@ -24,6 +24,9 @@ import { TweetListComponent } from './components/tweet-list/tweet-list.component
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TweetCardComponent } from './components/tweet-card/tweet-card.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TweetPageComponent } from './pages/tweet-page/tweet-page.component';
+import { TweetDeleteComponent } from './components/tweet-delete/tweet-delete.component';
+import { TweetReplayComponent } from './components/tweet-replay/tweet-replay.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     UserFollowingComponent,
     TweetListComponent,
     TweetCardComponent,
+    TweetPageComponent,
+    TweetDeleteComponent,
+    TweetReplayComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,3 +9,4 @@
 - [x] tweets pagination
 - [x] follow/unfollow
 - [x] like/unlike tweet
+- [x] deleting tweets

@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { AlertService } from '../alert.service';
 import { environment } from 'src/environments/environment';
 import { Pagination, Tweet } from 'src/app/constants/interfaces';
-import { catchError, of } from 'rxjs';
+import { catchError, of, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LikeService {
+  private UnlikedTweetId = new Subject<number | null>();
+
   constructor(private http: HttpClient, private alertService: AlertService) {}
 
   getUserLikes(id: number, page: number) {
@@ -42,5 +44,17 @@ export class LikeService {
         return of(null);
       })
     );
+  }
+
+  setUnlikedID(id: number) {
+    this.UnlikedTweetId.next(id);
+  }
+
+  clearUnlikedID() {
+    this.UnlikedTweetId.next(null);
+  }
+
+  getUnlikedID() {
+    return this.UnlikedTweetId.asObservable();
   }
 }

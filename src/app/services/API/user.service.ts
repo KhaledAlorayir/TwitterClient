@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Pagination, User, UserListItem } from '../../constants/interfaces';
-import { catchError, of } from 'rxjs';
+import { catchError, of, Subject } from 'rxjs';
 import { AlertService } from '../alert.service';
 
 @Injectable({
