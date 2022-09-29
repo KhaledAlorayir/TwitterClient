@@ -1,21 +1,13 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Auth, Tweet } from 'src/app/constants/interfaces';
-import { faHeart, faReply, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import dayjs from 'dayjs';
 import rt from 'dayjs/plugin/relativeTime';
 import { AuthService } from 'src/app/services/API/auth.service';
 import { Subscription } from 'rxjs';
 import { LikeService } from 'src/app/services/API/like.service';
 import { ActivatedRoute } from '@angular/router';
-import { TweetService } from 'src/app/services/API/tweet.service';
-import { AlertService } from 'src/app/services/alert.service';
+
 dayjs.extend(rt);
 
 @Component({
@@ -24,11 +16,7 @@ dayjs.extend(rt);
 })
 export class TweetCardComponent implements OnInit, OnDestroy {
   @Input() t!: Tweet;
-  icons = {
-    heart: faHeart,
-    replay: faReply,
-    trash: faTrash,
-  };
+  Likeicon = faHeart;
 
   auth!: Auth | null;
   authSub!: Subscription;
@@ -39,15 +27,9 @@ export class TweetCardComponent implements OnInit, OnDestroy {
   performLikeLoading!: boolean;
   performLikeSub!: Subscription;
 
-  isDeleteModalOpen = false;
-  DeleteSub!: Subscription;
-  DeleteLoading!: boolean;
-
   constructor(
     private authServie: AuthService,
     private likeService: LikeService,
-    private tweetService: TweetService,
-    private alertService: AlertService,
     private activedRouter: ActivatedRoute
   ) {}
 
@@ -89,25 +71,9 @@ export class TweetCardComponent implements OnInit, OnDestroy {
       });
   }
 
-  deleteTweet() {
-    this.DeleteLoading = true;
-    this.tweetService.deleteTweet(this.t.id).subscribe((res) => {
-      this.DeleteLoading = false;
-      this.isDeleteModalOpen = false;
-      if (res) {
-        this.tweetService.setDeletedId(this.t.id);
-        this.alertService.setAlert({
-          message: 'tweet has been deleted!',
-          type: 'SUCCSS',
-        });
-      }
-    });
-  }
-
   ngOnDestroy(): void {
     if (this.authSub) this.authSub.unsubscribe();
     if (this.isLikedSub) this.isLikedSub.unsubscribe();
     if (this.performLikeSub) this.performLikeSub.unsubscribe();
-    if (this.DeleteSub) this.DeleteSub.unsubscribe();
   }
 }

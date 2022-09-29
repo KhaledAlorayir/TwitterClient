@@ -1,1 +1,52 @@
-<p>tweet-replay works!</p>
+<div
+  (click)="isModalOpen = true"
+  class="mb-4 hover:opacity-80 hover:cursor-pointer"
+  *ngIf="auth"
+>
+  <fa-icon [icon]="icon" size="xl"></fa-icon>
+  <p class="text-center">{{ t.responses_count }}</p>
+</div>
+
+<!-- replay modal -->
+<div class="modal" [ngClass]="{ 'modal-open': isModalOpen }">
+  <div class="modal-box w-11/12 max-w-5xl bg-zinc-800">
+    <h3 class="font-bold text-lg">Replay to Tweet</h3>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" class="pt-3">
+      <textarea
+        class="textarea w-full bg-zinc-800 resize-none textarea-bordered border-yellow-700"
+        placeholder="Your replay..."
+        rows="5"
+        formControlName="replay"
+      ></textarea>
+
+      <p *ngIf="aboveLimit" class="text-rose-500 px-2 font-bold">
+        - the maximum length is 280
+      </p>
+      <p
+        *ngIf="isEmpty() && this.form.controls['replay'].touched"
+        class="text-rose-500 px-2 font-bold"
+      >
+        - the tweet can't be empty!
+      </p>
+      <div class="modal-action">
+        <label
+          [ngClass]="{ 'btn-disabled': ReplayLoading }"
+          (click)="close()"
+          class="btn btn-error"
+        >
+          Cancel
+        </label>
+        <button
+          [ngClass]="{
+            'btn-disabled': aboveLimit || isEmpty(),
+            loading: ReplayLoading
+          }"
+          class="btn btn-info"
+          type="submit"
+        >
+          Tweet
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

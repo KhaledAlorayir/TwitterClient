@@ -1,4 +1,7 @@
-<div class="bg-zinc-800 px-2 md:px-16 py-4" *ngIf="alerts && alerts.length > 0">
+<div
+  class="bg-transparent px-2 md:px-16 py-4 fixed w-full z-10"
+  *ngIf="alerts && alerts.length > 0"
+>
   <div *ngFor="let alert of alerts; let i = index">
     <div
       [ngClass]="{

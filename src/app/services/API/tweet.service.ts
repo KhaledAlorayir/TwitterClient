@@ -46,4 +46,15 @@ export class TweetService {
   getDeletedId() {
     return this.DeletedTweetId.asObservable();
   }
+
+  replaytoTweet(tid: number, content: string) {
+    return this.http
+      .post<Tweet>(`${environment.baseUrl}/tweet/${tid}`, { content })
+      .pipe(
+        catchError((err) => {
+          this.alertService.handleErrors(err.error);
+          return of(null);
+        })
+      );
+  }
 }

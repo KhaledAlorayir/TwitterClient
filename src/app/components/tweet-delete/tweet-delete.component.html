@@ -1,1 +1,33 @@
-<p>tweet-delete works!</p>
+<div
+  *ngIf="auth && auth.user.id === t.owner.id"
+  class="mb-4 hover:opacity-80 hover:cursor-pointer"
+  (click)="isModalOpen = true"
+>
+  <fa-icon [icon]="icon" size="xl"></fa-icon>
+</div>
+
+<!-- delete modal -->
+<div class="modal" [ngClass]="{ 'modal-open': isModalOpen }">
+  <div class="modal-box bg-zinc-800">
+    <h3 class="font-bold text-lg">Delete Tweet</h3>
+    <p class="py-4 font-semibold">
+      {{ auth?.user?.username }}, are you sure you want to delete the tweet? 🗑
+    </p>
+    <div class="modal-action">
+      <button
+        [ngClass]="{ 'btn-disabled': Loading }"
+        (click)="isModalOpen = false"
+        class="btn btn-accent"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="deleteTweet()"
+        [ngClass]="{ loading: Loading }"
+        class="btn btn-error"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
