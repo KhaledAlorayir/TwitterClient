@@ -45,7 +45,6 @@ export class TweetReplayComponent implements OnInit, OnDestroy {
       this.ReplaySub = this.tweetService
         .replaytoTweet(this.t.id, this.form.value['replay'])
         .subscribe((tweet) => {
-          console.log(tweet);
           this.isModalOpen = false;
           if (tweet) {
             this.alertService.setAlert({
@@ -53,6 +52,7 @@ export class TweetReplayComponent implements OnInit, OnDestroy {
               type: 'SUCCSS',
             });
             this.t.responses_count++;
+            this.tweetService.setReplay(tweet, this.t.id);
           }
           this.ReplayLoading = false;
           this.form.reset();

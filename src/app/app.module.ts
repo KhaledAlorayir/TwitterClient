@@ -27,6 +27,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TweetPageComponent } from './pages/tweet-page/tweet-page.component';
 import { TweetDeleteComponent } from './components/tweet-delete/tweet-delete.component';
 import { TweetReplayComponent } from './components/tweet-replay/tweet-replay.component';
+import { TweetLikesComponent } from './components/tweet-likes/tweet-likes.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { TweetReplayComponent } from './components/tweet-replay/tweet-replay.com
     TweetPageComponent,
     TweetDeleteComponent,
     TweetReplayComponent,
+    TweetLikesComponent,
   ],
   imports: [
     BrowserModule,

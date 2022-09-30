@@ -1,1 +1,35 @@
-<p>tweet-page works!</p>
+<div class="min-h-full bg-zinc-900 px-4 py-8 md:px-16 lg:px-24">
+  <div *ngIf="tweetLoading" class="flex justify-center items-center">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
+  <div *ngIf="!tweetLoading" class="">
+    <div *ngIf="originalLoading" class="flex justify-center items-center">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+    <div *ngIf="!originalLoading && original">
+      <app-tweet-card [t]="original"></app-tweet-card>
+      <div class="text-center mb-2">
+        <fa-icon
+          [icon]="originalIcon"
+          class="text-yellow-500 text-3xl"
+        ></fa-icon>
+      </div>
+    </div>
+    <div *ngIf="tweet">
+      <app-tweet-card [t]="tweet"></app-tweet-card>
+      <app-tweet-likes *ngIf="tweet.likes_count > 0"></app-tweet-likes>
+    </div>
+    <div *ngIf="repliesInitalLoading" class="flex justify-center items-center">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+    <div *ngIf="!repliesInitalLoading && replies" class="my-10">
+      <p class="text-white text-xl font-mono font-semibold">Replies 📢</p>
+      <app-tweet-list
+        [tweets]="replies"
+        [fetching]="repliesNextPageLoading"
+        emptyText="replies"
+        (paginate)="loadReplies(this.tweet.id)"
+      ></app-tweet-list>
+    </div>
+  </div>
+</div>

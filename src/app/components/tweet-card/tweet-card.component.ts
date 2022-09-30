@@ -6,7 +6,7 @@ import rt from 'dayjs/plugin/relativeTime';
 import { AuthService } from 'src/app/services/API/auth.service';
 import { Subscription } from 'rxjs';
 import { LikeService } from 'src/app/services/API/like.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 dayjs.extend(rt);
 
@@ -30,20 +30,23 @@ export class TweetCardComponent implements OnInit, OnDestroy {
   constructor(
     private authServie: AuthService,
     private likeService: LikeService,
-    private activedRouter: ActivatedRoute
+    private activedRouter: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.isLikedLoading = true;
-    this.authSub = this.authServie.getUser().subscribe((v) => (this.auth = v));
-    if (this.auth) {
-      this.isLikedSub = this.likeService
-        .DoILikeTweet(this.t.id)
-        .subscribe((res) => {
-          this.isLiked = res?.yes;
-          this.isLikedLoading = false;
-        });
-    }
+    this.authSub = this.authServie.getUser().subscribe((v) => {
+      this.auth = v;
+      if (this.auth) {
+        this.isLikedSub = this.likeService
+          .DoILikeTweet(this.t.id)
+          .subscribe((res) => {
+            this.isLiked = res?.yes;
+            this.isLikedLoading = false;
+          });
+      }
+    });
   }
 
   getTime(date: Date) {
@@ -69,6 +72,10 @@ export class TweetCardComponent implements OnInit, OnDestroy {
           }
         }
       });
+  }
+
+  navigate() {
+    this.router.navigate(['/tweet', this.t.id]);
   }
 
   ngOnDestroy(): void {

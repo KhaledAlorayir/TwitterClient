@@ -10,6 +10,7 @@ import { catchError, of, Subject } from 'rxjs';
 })
 export class TweetService {
   private DeletedTweetId = new Subject<number | null>();
+  private Replay = new Subject<{ tweet: Tweet; response_to: number } | null>();
 
   constructor(private http: HttpClient, private alertService: AlertService) {}
 
@@ -35,6 +36,18 @@ export class TweetService {
     );
   }
 
+  setReplay(tweet: Tweet, original_id: number) {
+    this.Replay.next({ tweet, response_to: original_id });
+  }
+
+  clearReplay() {
+    this.Replay.next(null);
+  }
+
+  getReplay() {
+    return this.Replay.asObservable();
+  }
+
   setDeletedId(id: number) {
     this.DeletedTweetId.next(id);
   }
@@ -50,6 +63,39 @@ export class TweetService {
   replaytoTweet(tid: number, content: string) {
     return this.http
       .post<Tweet>(`${environment.baseUrl}/tweet/${tid}`, { content })
+      .pipe(
+        catchError((err) => {
+          this.alertService.handleErrors(err.error);
+          return of(null);
+        })
+      );
+  }
+
+  getTweet(tid: number) {
+    return this.http.get<Tweet>(`${environment.baseUrl}/tweet/${tid}`).pipe(
+      catchError((err) => {
+        this.alertService.handleErrors(err.error);
+        return of(null);
+      })
+    );
+  }
+
+  getTweetReplies(tid: number, page: number) {
+    return this.http
+      .get<Pagination<Tweet>>(`${environment.baseUrl}/tweet/${tid}/replies`, {
+        params: { page },
+      })
+      .pipe(
+        catchError((err) => {
+          this.alertService.handleErrors(err.error);
+          return of(null);
+        })
+      );
+  }
+
+  getOriginalTweet(tid: number) {
+    return this.http
+      .get<Tweet>(`${environment.baseUrl}/tweet/${tid}/original`)
       .pipe(
         catchError((err) => {
           this.alertService.handleErrors(err.error);
