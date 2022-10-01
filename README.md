@@ -13,8 +13,8 @@
 - [x] replay to tweet
 - [x] tweet page with replies
 - [x] who liked tweet
-- [] following list
-- [] followers list
+- [x] following list
+- [x] followers list
 - [] timeline
 - [] tweet
 - [] change bio

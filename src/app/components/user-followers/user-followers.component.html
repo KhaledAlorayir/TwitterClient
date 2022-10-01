@@ -1,1 +1,13 @@
-<p>user-followers works!</p>
+<div class="bg-zinc-800 text-white">
+  <div *ngIf="initalLoading" class="flex justify-center">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
+  <div *ngIf="!initalLoading && followers">
+    <app-user-list
+      [users]="followers"
+      [fetching]="fetchingNext"
+      emptyText="followers"
+      (paginate)="loadData()"
+    ></app-user-list>
+  </div>
+</div>
