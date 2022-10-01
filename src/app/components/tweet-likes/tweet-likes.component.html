@@ -1,3 +1,31 @@
-<p class="font-mono text-white cursor-pointer hover:opacity-80">
+<p
+  (click)="isOpen = true"
+  class="font-mono text-white cursor-pointer hover:opacity-80 inline-block"
+>
   who liked this tweet? 🧐
 </p>
+
+<div class="modal" [ngClass]="{ 'modal-open': isOpen }">
+  <div #cont class="modal-box w-11/12 max-w-5xl bg-zinc-800 text-white">
+    <div class="flex justify-between items-center">
+      <h3 class="font-bold text-lg">this tweet has been liked by:</h3>
+      <button (click)="isOpen = false" class="btn btn-error btn-sm btn-circle">
+        X
+      </button>
+    </div>
+    <div class="py-4">
+      <div *ngIf="initalLoading" class="flex justify-center">
+        <app-loading-indicator></app-loading-indicator>
+      </div>
+      <div *ngIf="!initalLoading && users">
+        <app-user-list
+          [users]="users"
+          [fetching]="fetchingNext"
+          emptyText="likes"
+          (paginate)="loadData()"
+          [cont]="cont"
+        ></app-user-list>
+      </div>
+    </div>
+  </div>
+</div>

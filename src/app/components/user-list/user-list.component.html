@@ -1,0 +1,22 @@
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="1000"
+  [infiniteScrollContainer]="cont"
+  (scrolled)="load()"
+  *ngIf="users"
+  class="py-6"
+>
+  <div *ngIf="users.results.length > 0">
+    <app-user-card *ngFor="let u of users.results" [user]="u"></app-user-card>
+    <div *ngIf="fetching" class="flex justify-center">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  </div>
+  <div
+    class="text-center text-lg font-semibold text-white"
+    *ngIf="users.results.length === 0"
+  >
+    no {{ emptyText }}!
+  </div>
+</div>

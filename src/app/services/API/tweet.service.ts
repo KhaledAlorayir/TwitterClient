@@ -31,6 +31,7 @@ export class TweetService {
     return this.http.delete(`${environment.baseUrl}/tweet/${tid}`).pipe(
       catchError((err) => {
         this.alertService.handleErrors(err.error);
+        console.log(err);
         return of(null);
       })
     );

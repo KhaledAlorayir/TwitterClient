@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertService } from '../alert.service';
 import { environment } from 'src/environments/environment';
-import { Pagination, Tweet } from 'src/app/constants/interfaces';
+import { Pagination, Tweet, UserListItem } from 'src/app/constants/interfaces';
 import { catchError, of, Subject } from 'rxjs';
 
 @Injectable({
@@ -44,6 +44,19 @@ export class LikeService {
         return of(null);
       })
     );
+  }
+
+  getTweetLikes(tid: number, page: number) {
+    return this.http
+      .get<Pagination<UserListItem>>(`${environment.baseUrl}/like/${tid}`, {
+        params: { page },
+      })
+      .pipe(
+        catchError((err) => {
+          this.alertService.handleErrors(err.error);
+          return of(null);
+        })
+      );
   }
 
   setUnlikedID(id: number) {

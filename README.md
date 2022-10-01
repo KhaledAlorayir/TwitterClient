@@ -12,10 +12,12 @@
 - [x] deleting tweets
 - [x] replay to tweet
 - [x] tweet page with replies
-- [] who liked tweet
+- [x] who liked tweet
 - [] following list
 - [] followers list
 - [] timeline
+- [] tweet
 - [] change bio
+- [] change username
 - [] change profile img via file
 - [] change profile img via link

@@ -28,6 +28,8 @@ import { TweetPageComponent } from './pages/tweet-page/tweet-page.component';
 import { TweetDeleteComponent } from './components/tweet-delete/tweet-delete.component';
 import { TweetReplayComponent } from './components/tweet-replay/tweet-replay.component';
 import { TweetLikesComponent } from './components/tweet-likes/tweet-likes.component';
+import { UserCardComponent } from './components/user-card/user-card.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { TweetLikesComponent } from './components/tweet-likes/tweet-likes.compon
     TweetDeleteComponent,
     TweetReplayComponent,
     TweetLikesComponent,
+    UserCardComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,

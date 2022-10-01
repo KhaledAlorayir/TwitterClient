@@ -1,0 +1,24 @@
+<div
+  *ngIf="user"
+  class="bg-zinc-700 p-2 flex items-center justify-evenly rounded-md shadow-md mb-4"
+>
+  <a routerLink="/user/{{ user.id }}" class="hover:opacity-80">
+    <div>
+      <div class="avatar">
+        <div class="w-16 rounded-full">
+          <img src="{{ user.img_url }}" />
+        </div>
+      </div>
+      <p class="font-bold text-center">{{ user.username }}</p>
+    </div>
+  </a>
+
+  <button
+    *ngIf="auth && auth.user.id !== user.id && !initLoading"
+    [ngClass]="{ 'btn-disabled  loading opacity-70': followsLoading }"
+    class="btn bg-yellow-600 hover:bg-yellow-700 text-black"
+    (click)="follow()"
+  >
+    {{ follows ? "unfollow" : "follow" }}
+  </button>
+</div>
