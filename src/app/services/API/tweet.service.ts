@@ -104,4 +104,28 @@ export class TweetService {
         })
       );
   }
+
+  makeTweet(content: string) {
+    return this.http
+      .post<Tweet>(`${environment.baseUrl}/tweet`, { content })
+      .pipe(
+        catchError((err) => {
+          this.alertService.handleErrors(err.error);
+          return of(null);
+        })
+      );
+  }
+
+  getTimeline(page: number) {
+    return this.http
+      .get<Pagination<Tweet>>(`${environment.baseUrl}/tweet/timeline`, {
+        params: { page },
+      })
+      .pipe(
+        catchError((err) => {
+          this.alertService.handleErrors(err.error);
+          return of(null);
+        })
+      );
+  }
 }

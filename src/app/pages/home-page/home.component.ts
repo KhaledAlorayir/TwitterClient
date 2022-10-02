@@ -8,9 +8,17 @@ import { AuthService } from 'src/app/services/API/auth.service';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  auth!: Auth | null;
+  authSub!: Subscription;
+
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
-  ngOnDestroy(): void {}
-  test() {}
+  ngOnInit(): void {
+    this.authSub = this.authService.getUser().subscribe((user) => {
+      this.auth = user;
+    });
+  }
+  ngOnDestroy(): void {
+    if (this.authSub) this.authSub.unsubscribe();
+  }
 }

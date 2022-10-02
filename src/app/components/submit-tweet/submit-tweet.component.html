@@ -1,0 +1,49 @@
+<button
+  (click)="isModalOpen = true"
+  class="btn shadow-xl hover:opacity-80 hover:bg-yellow-800 rounded-2xl text-xl font-mono bg-yellow-700"
+>
+  Tweet! ✏
+</button>
+
+<div class="modal" [ngClass]="{ 'modal-open': isModalOpen }">
+  <div class="modal-box text-white w-11/12 max-w-5xl bg-zinc-800">
+    <h3 class="font-bold text-lg">Make a Tweet</h3>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" class="pt-3">
+      <textarea
+        class="textarea w-full bg-zinc-800 resize-none textarea-bordered border-yellow-700"
+        placeholder="Your replay..."
+        rows="5"
+        formControlName="content"
+      ></textarea>
+
+      <p *ngIf="aboveLimit" class="text-rose-500 px-2 font-bold">
+        - the maximum length is 280
+      </p>
+      <p
+        *ngIf="isEmpty() && this.form.controls['content'].touched"
+        class="text-rose-500 px-2 font-bold"
+      >
+        - the tweet can't be empty!
+      </p>
+      <div class="modal-action">
+        <label
+          [ngClass]="{ 'btn-disabled': TweetLoading }"
+          (click)="close()"
+          class="btn btn-error"
+        >
+          Cancel
+        </label>
+        <button
+          [ngClass]="{
+            'btn-disabled': aboveLimit || isEmpty(),
+            loading: TweetLoading
+          }"
+          class="btn btn-info"
+          type="submit"
+        >
+          Tweet
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -30,6 +30,8 @@ import { TweetReplayComponent } from './components/tweet-replay/tweet-replay.com
 import { TweetLikesComponent } from './components/tweet-likes/tweet-likes.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
+import { SubmitTweetComponent } from './components/submit-tweet/submit-tweet.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { UserListComponent } from './components/user-list/user-list.component';
     TweetLikesComponent,
     UserCardComponent,
     UserListComponent,
+    TimelineComponent,
+    SubmitTweetComponent,
   ],
   imports: [
     BrowserModule,

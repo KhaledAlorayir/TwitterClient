@@ -1,0 +1,27 @@
+<div
+  *ngIf="!loading && timeline"
+  class="flex items-center justify-between mb-4"
+>
+  <p class="text-white text-xl font-mono font-semibold">
+    tweets from your following 🐇
+  </p>
+  <button
+    (click)="refresh()"
+    class="btn btn-circle shadow-md hover:opacity-80 hover:bg-yellow-800 text-lg bg-yellow-700"
+  >
+    <fa-icon [icon]="icon"></fa-icon>
+  </button>
+</div>
+<div class="bg-zinc-800 text-white">
+  <div *ngIf="loading" class="flex justify-center">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
+  <div *ngIf="!loading && timeline">
+    <app-tweet-list
+      [tweets]="timeline"
+      [fetching]="fetchingNext"
+      emptyText="tweets"
+      (paginate)="loadData()"
+    ></app-tweet-list>
+  </div>
+</div>

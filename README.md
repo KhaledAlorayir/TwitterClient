@@ -15,8 +15,8 @@
 - [x] who liked tweet
 - [x] following list
 - [x] followers list
-- [] timeline
-- [] tweet
+- [x] timeline
+- [x] tweet
 - [] change bio
 - [] change username
 - [] change profile img via file
