@@ -41,7 +41,6 @@ export class SubmitTweetComponent implements OnInit, OnDestroy {
         .subscribe((tweet) => {
           this.isModalOpen = false;
           if (tweet) {
-            console.log(tweet);
             this.alertService.setAlert({
               message: 'tweet has been sent!',
               type: 'SUCCSS',

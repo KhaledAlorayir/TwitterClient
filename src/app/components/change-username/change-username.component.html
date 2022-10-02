@@ -1,0 +1,48 @@
+<p
+  (click)="isModalOpen = true"
+  class="w-60 py-10 hover:opacity-80 transition-all cursor-pointer my-8 md:mx-8 md:my-0 bg-yellow-700 text-xl font-mono text-center rounded shadow-md"
+>
+  change username
+</p>
+
+<div class="modal" [ngClass]="{ 'modal-open': isModalOpen }">
+  <div class="modal-box text-white w-11/12 max-w-5xl bg-zinc-800">
+    <h3 class="font-bold text-lg">change username</h3>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" class="pt-3">
+      <input
+        class="input input-bordered w-full bg-zinc-800 border-yellow-700"
+        placeholder="Your username..."
+        formControlName="username"
+      />
+
+      <p *ngIf="aboveLimit" class="text-rose-500 px-2 font-bold">
+        - the maximum length is 25!
+      </p>
+      <p
+        *ngIf="isEmpty() && this.form.controls['username'].touched"
+        class="text-rose-500 px-2 font-bold"
+      >
+        - username can't be empty!
+      </p>
+      <div class="modal-action">
+        <label
+          [ngClass]="{ 'btn-disabled': loading }"
+          (click)="close()"
+          class="btn btn-error"
+        >
+          Cancel
+        </label>
+        <button
+          [ngClass]="{
+            'btn-disabled': aboveLimit || isEmpty(),
+            loading: loading
+          }"
+          class="btn btn-accent"
+          type="submit"
+        >
+          Change
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

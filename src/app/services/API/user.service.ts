@@ -28,4 +28,48 @@ export class UserService {
       })
     );
   }
+
+  changeUsername(username: string) {
+    return this.http
+      .patch<User>(`${environment.baseUrl}/user/username`, { username })
+      .pipe(
+        catchError((err) => {
+          this.alertService.handleErrors(err.error);
+          return of(null);
+        })
+      );
+  }
+
+  changeBio(bio: string) {
+    return this.http
+      .patch<User>(`${environment.baseUrl}/user/bio`, { bio })
+      .pipe(
+        catchError((err) => {
+          this.alertService.handleErrors(err.error);
+          return of(null);
+        })
+      );
+  }
+
+  changeImgviaURL(img_url: string) {
+    return this.http
+      .patch<User>(`${environment.baseUrl}/user/imgurl`, { img_url })
+      .pipe(
+        catchError((err) => {
+          this.alertService.handleErrors(err.error);
+          return of(null);
+        })
+      );
+  }
+
+  changeImgviaFile(img_url: string) {
+    return this.http
+      .patch<User>(`${environment.baseUrl}/user/imgurl`, { img_url })
+      .pipe(
+        catchError((err) => {
+          this.alertService.handleErrors(err.error);
+          return of(null);
+        })
+      );
+  }
 }

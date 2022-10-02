@@ -106,4 +106,8 @@ export class AuthService {
   getUser() {
     return this.auth.asObservable();
   }
+
+  updateUser(user: User) {
+    this.auth.next({ token: this.auth.getValue()!.token, user });
+  }
 }

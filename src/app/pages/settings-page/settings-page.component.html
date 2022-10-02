@@ -1,0 +1,10 @@
+<div class="h-full text-white bg-zinc-900 flex items-center justify-center">
+  <div *ngIf="auth" class="">
+    <p class="text-center mb-12 text-3xl font-bold font-mono">Settings 🦄</p>
+    <div class="flex flex-col md:flex-row">
+      <app-change-username></app-change-username>
+      <app-change-bio></app-change-bio>
+      <app-change-image></app-change-image>
+    </div>
+  </div>
+</div>

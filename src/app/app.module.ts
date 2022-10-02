@@ -32,6 +32,10 @@ import { UserCardComponent } from './components/user-card/user-card.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { SubmitTweetComponent } from './components/submit-tweet/submit-tweet.component';
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import { ChangeUsernameComponent } from './components/change-username/change-username.component';
+import { ChangeBioComponent } from './components/change-bio/change-bio.component';
+import { ChangeImageComponent } from './components/change-image/change-image.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +64,10 @@ import { SubmitTweetComponent } from './components/submit-tweet/submit-tweet.com
     UserListComponent,
     TimelineComponent,
     SubmitTweetComponent,
+    SettingsPageComponent,
+    ChangeUsernameComponent,
+    ChangeBioComponent,
+    ChangeImageComponent,
   ],
   imports: [
     BrowserModule,

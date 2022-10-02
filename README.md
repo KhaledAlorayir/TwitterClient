@@ -17,7 +17,7 @@
 - [x] followers list
 - [x] timeline
 - [x] tweet
-- [] change bio
-- [] change username
+- [x] change bio
+- [x] change username
 - [] change profile img via file
 - [] change profile img via link
