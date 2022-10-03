@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'settings',
     component: SettingsPageComponent,
-    //canActivate: [HomeGuard],
+    canActivate: [HomeGuard],
   },
   {
     path: 'user/:id',

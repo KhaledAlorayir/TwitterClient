@@ -19,5 +19,7 @@
 - [x] tweet
 - [x] change bio
 - [x] change username
-- [] change profile img via file
-- [] change profile img via link
+- [x] change profile img via file
+- [x] change profile img via link
+
+## finished!

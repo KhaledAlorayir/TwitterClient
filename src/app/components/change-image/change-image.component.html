@@ -1,5 +1,72 @@
 <p
+  (click)="isModalOpen = true"
   class="w-60 py-10 hover:opacity-80 transition-all cursor-pointer my-8 md:mx-8 md:my-0 bg-yellow-700 text-xl font-mono text-center rounded shadow-md"
 >
   change profile image
 </p>
+
+<div class="modal" [ngClass]="{ 'modal-open': isModalOpen }">
+  <div class="modal-box text-white w-11/12 max-w-5xl bg-zinc-800">
+    <h3 class="font-bold text-lg mb-10">change image</h3>
+    <div class="avatar flex justify-center">
+      <div class="w-20 rounded">
+        <img src="{{ auth!.user.img_url }}" />
+      </div>
+    </div>
+    <p
+      (click)="switch()"
+      [ngClass]="{ 'pointer-events-none': loading }"
+      class="font-semibold cursor-pointer hover:opacity-80 transition-all mb-6"
+    >
+      {{ isLink ? "change via a file?" : "change via a link?" }}
+    </p>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" class="pt-3">
+      <input
+        *ngIf="isLink"
+        class="input input-bordered w-full bg-zinc-800 border-yellow-700"
+        placeholder="Your image link..."
+        formControlName="link"
+      />
+      <input
+        class="block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-700 file:text-white hover:file:bg-yellow-800"
+        *ngIf="!isLink"
+        type="file"
+        accept="image/*"
+        (change)="onFileChange($event)"
+      />
+
+      <p
+        *ngIf="isEmpty() && this.form.controls['link'].touched"
+        class="text-rose-500 px-2 font-bold"
+      >
+        - link can't be empty!
+      </p>
+      <p *ngIf="invalidLink" class="text-rose-500 px-2 font-bold">
+        - invalid link!
+      </p>
+      <p *ngIf="invalidFile" class="text-rose-500 px-2 font-bold">
+        - no file selected!
+      </p>
+
+      <div class="modal-action">
+        <label
+          class="btn btn-error"
+          [ngClass]="{ 'btn-disabled': loading }"
+          (click)="close()"
+        >
+          Cancel
+        </label>
+        <button
+          [ngClass]="{
+            'btn-disabled': isEmpty() && isLink,
+            loading: loading
+          }"
+          class="btn btn-accent"
+          type="submit"
+        >
+          Change
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

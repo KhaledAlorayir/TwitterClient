@@ -62,9 +62,9 @@ export class UserService {
       );
   }
 
-  changeImgviaFile(img_url: string) {
+  changeImgviaFile(formdata: FormData) {
     return this.http
-      .patch<User>(`${environment.baseUrl}/user/imgurl`, { img_url })
+      .patch<User>(`${environment.baseUrl}/user/imgfile`, formdata)
       .pipe(
         catchError((err) => {
           this.alertService.handleErrors(err.error);
